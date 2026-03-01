@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="header">
+      <div class="header-inner">
+        <h1 class="logo">Home-tab</h1>
+        <div class="header-actions">
+          <div id="search-container" class="search-container" aria-hidden="true"></div>
+          <div id="background-control" class="background-control">
+            <input type="file" id="background-input" class="background-input" accept="image/*" aria-label="Choose background image" hidden>
+            <button type="button" id="background-btn" class="background-btn" aria-label="Set background image"></button>
+            <button type="button" id="background-remove" class="background-remove" aria-label="Remove background image" title="Remove background" hidden></button>
+          </div>
+          <div id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></div>
+        </div>
+      </div>
+    </header>
+    <main id="main" class="main" role="main">
+      <div id="content" class="content"></div>
+    </main>
+    <div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
