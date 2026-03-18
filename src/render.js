@@ -4,7 +4,7 @@
  * Uses chrome.runtime.getURL for favicon API; supports lazy loading.
  */
 
-const FAVICON_SIZE = 32;
+const FAVICON_SIZE = 64;
 
 /**
  * Build favicon URL for a bookmark (MV3 Favicon API).
@@ -61,8 +61,8 @@ function renderSetup(container) {
 function renderBookmarkItem(bookmark, lazyFavicon, categoryId) {
   const faviconUrl = getFaviconUrl(bookmark.url);
   const faviconHtml = lazyFavicon
-    ? `<img class="bookmark-favicon" loading="lazy" data-src="${faviconUrl}" alt="" width="20" height="20">`
-    : `<img class="bookmark-favicon" src="${faviconUrl}" loading="lazy" alt="" width="20" height="20">`;
+    ? `<img class="bookmark-favicon" loading="lazy" data-src="${faviconUrl}" alt="" width="32" height="32">`
+    : `<img class="bookmark-favicon" src="${faviconUrl}" loading="lazy" alt="" width="32" height="32">`;
   const title = escapeHtml(
     bookmark.title ||
       (() => {
@@ -76,7 +76,7 @@ function renderBookmarkItem(bookmark, lazyFavicon, categoryId) {
   return `
     <li class="bookmark-item" data-id="${escapeAttr(bookmark.id)}" data-type="bookmark" data-category-id="${escapeAttr(categoryId)}" draggable="true">
       <span class="drag-handle" aria-label="Reorder bookmark" data-drag-handle></span>
-      <a class="bookmark-link" href="${escapeAttr(bookmark.url)}" target="_blank" rel="noopener noreferrer" data-id="${escapeAttr(bookmark.id)}">
+      <a class="bookmark-link" href="${escapeAttr(bookmark.url)}" data-id="${escapeAttr(bookmark.id)}">
         ${faviconHtml}
         <span class="bookmark-title">${title}</span>
       </a>

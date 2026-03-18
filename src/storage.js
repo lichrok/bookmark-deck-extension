@@ -8,6 +8,7 @@ const KEYS = {
   BOOKMARK_ORDER: 'bookmarkOrder',
   THEME: 'theme',
   BACKGROUND_IMAGE: 'backgroundImage',
+  CACHED_STATE: 'cachedState',
 };
 
 const DEFAULT_THEME = 'system';
@@ -96,4 +97,24 @@ export async function setBackgroundImage(dataUrl) {
  */
 export async function clearBackgroundImage() {
   await chrome.storage.local.remove(KEYS.BACKGROUND_IMAGE);
+}
+
+/**
+ * Get cached state from previous render (for instant display on load).
+ * @returns {Promise<{ categories: Array, hasHomeTab: boolean } | null>}
+ */
+export async function getCachedState() {
+  const out = await chrome.storage.local.get(KEYS.CACHED_STATE);
+  const v = out[KEYS.CACHED_STATE];
+  return v && typeof v === 'object' && Array.isArray(v.categories) ? v : null;
+}
+
+/**
+ * Cache the current state for instant display on next load.
+ * @param {{ categories: Array, hasHomeTab: boolean }} state
+ */
+export async function setCachedState(state) {
+  if (state && state.hasHomeTab) {
+    await chrome.storage.local.set({ [KEYS.CACHED_STATE]: state });
+  }
 }

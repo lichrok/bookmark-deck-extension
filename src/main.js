@@ -32,13 +32,25 @@ async function init() {
 
   if (!content) return;
 
-  const onStateChange = () => {
+  // Show cached state immediately BEFORE initializing state manager
+  const cachedState = await storage.getCachedState();
+  if (cachedState) {
+    render(content, cachedState);
+    content.classList.remove('content-loading');
+    content.classList.add('content-ready');
+  }
+
+  const onStateChange = async () => {
     const state = stateApi.getState();
     render(content, state);
+    content.classList.remove('content-loading');
+    content.classList.add('content-ready');
     attachDnd(content, stateApi, liveRegion);
     if (typeof updateSearchFilter === 'function') {
       updateSearchFilter(state);
     }
+    // Cache state for instant display on next load
+    await storage.setCachedState(state);
   };
 
   const stateApi = createState(
@@ -126,6 +138,7 @@ async function init() {
     }
   }, DEBOUNCE_MS);
 
+  // Load fresh bookmarks and update (cache already shown above)
   await load();
 
   chrome.bookmarks.onCreated.addListener(load);
