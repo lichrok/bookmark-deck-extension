@@ -6,22 +6,30 @@
   <title>New Tab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500&family=Playfair+Display:wght@500;600&family=Syne+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
   <div id="app" class="app">
     <header class="header">
       <div class="header-inner">
-        <h1 class="logo">Home-tab</h1>
+        <div class="brand">
+          <div class="brand-mark raised" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/><path d="M9 21v-6h6v6"/></svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="logo">Home-tab</h1>
+            <div class="clock" id="clock">&mdash;</div>
+          </div>
+        </div>
+        <div id="search-container" class="search-container" aria-hidden="true"></div>
         <div class="header-actions">
-          <div id="search-container" class="search-container" aria-hidden="true"></div>
           <div id="background-control" class="background-control">
             <input type="file" id="background-input" class="background-input" accept="image/*" aria-label="Choose background image" hidden>
-            <button type="button" id="background-btn" class="background-btn" aria-label="Set background image"></button>
-            <button type="button" id="background-remove" class="background-remove" aria-label="Remove background image" title="Remove background" hidden></button>
+            <button type="button" id="background-btn" class="icon-btn background-btn" aria-label="Set background image" title="Set background image"></button>
+            <button type="button" id="background-remove" class="icon-btn background-remove" aria-label="Remove background image" title="Remove background" hidden></button>
           </div>
-          <div id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></div>
+          <button type="button" id="theme-toggle" class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme"></button>
         </div>
       </div>
     </header>

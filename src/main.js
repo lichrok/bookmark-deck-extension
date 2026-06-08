@@ -24,6 +24,19 @@ function debounce(fn, ms) {
   };
 }
 
+function startClock() {
+  const el = document.getElementById('clock');
+  if (!el) return;
+  const tick = () => {
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const date = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+    el.textContent = `${time}  ·  ${date}`;
+  };
+  tick();
+  setInterval(tick, 10000);
+}
+
 async function init() {
   const content = document.getElementById('content');
   const themeToggle = document.getElementById('theme-toggle');
@@ -31,6 +44,8 @@ async function init() {
   const liveRegion = document.getElementById('live-region');
 
   if (!content) return;
+
+  startClock();
 
   // Show cached state immediately BEFORE initializing state manager
   const cachedState = await storage.getCachedState();

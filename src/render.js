@@ -6,6 +6,10 @@
 
 const FAVICON_SIZE = 64;
 
+// Inline folder icon for section headers (CSP-safe; no remote scripts in MV3).
+const SECTION_ICON_SVG =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>';
+
 /**
  * Build favicon URL for a bookmark (MV3 Favicon API).
  * @param {string} url - Bookmark URL.
@@ -76,8 +80,8 @@ function renderBookmarkItem(bookmark, lazyFavicon, categoryId) {
   return `
     <li class="bookmark-item" data-id="${escapeAttr(bookmark.id)}" data-type="bookmark" data-category-id="${escapeAttr(categoryId)}" draggable="true">
       <span class="drag-handle" aria-label="Reorder bookmark" data-drag-handle></span>
-      <a class="bookmark-link" href="${escapeAttr(bookmark.url)}" data-id="${escapeAttr(bookmark.id)}">
-        ${faviconHtml}
+      <a class="bookmark-link" href="${escapeAttr(bookmark.url)}" data-id="${escapeAttr(bookmark.id)}" title="${title}">
+        <span class="tile-ico">${faviconHtml}</span>
         <span class="bookmark-title">${title}</span>
       </a>
     </li>
@@ -101,11 +105,12 @@ function renderCategoryCard(category, lazyFavicon) {
   return `
     <article class="card" data-id="${escapeAttr(category.id)}" data-type="category" draggable="true">
       <div class="card-header">
-        <span class="drag-handle" aria-label="Reorder category" data-drag-handle></span>
+        <span class="section-icon" aria-hidden="true" data-drag-handle>${SECTION_ICON_SVG}</span>
         <h3 class="card-title">${title}</h3>
+        <span class="section-count">${category.bookmarks.length}</span>
         <div class="reorder-actions" role="group" aria-label="Reorder category">
-          <button type="button" class="reorder-btn reorder-up" aria-label="Move up" data-category-id="${escapeAttr(category.id)}" data-dir="up">↑</button>
-          <button type="button" class="reorder-btn reorder-down" aria-label="Move down" data-category-id="${escapeAttr(category.id)}" data-dir="down">↓</button>
+          <button type="button" class="reorder-btn reorder-up" aria-label="Move up" data-category-id="${escapeAttr(category.id)}" data-dir="up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button>
+          <button type="button" class="reorder-btn reorder-down" aria-label="Move down" data-category-id="${escapeAttr(category.id)}" data-dir="down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
         </div>
       </div>
       <div class="card-body">
